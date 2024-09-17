@@ -12,6 +12,7 @@ class TasksController < ApplicationController
       def create
         @task = Task.new(task_params)
             if @task.save
+                redirect_to tasks_path, notice: 'Tarefa criada com sucesso.'
             end
       end
 end
