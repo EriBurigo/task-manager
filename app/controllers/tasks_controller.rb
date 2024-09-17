@@ -10,5 +10,6 @@ class TasksController < ApplicationController
       end
 
       def create
+        @task = Task.new(task_params)
       end
 end
