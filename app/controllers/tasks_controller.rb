@@ -17,4 +17,8 @@ class TasksController < ApplicationController
                 render :new
             end
       end
+
+      # GET /tasks/:id/edit
+   def edit
+   end
 end
