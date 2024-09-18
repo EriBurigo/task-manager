@@ -21,4 +21,8 @@ class TasksController < ApplicationController
       # GET /tasks/:id/edit
    def edit
    end
+
+   # PATCH/PUT /tasks/:id
+  def update
+  end
 end
