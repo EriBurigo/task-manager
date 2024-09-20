@@ -24,5 +24,9 @@ class TasksController < ApplicationController
 
    # PATCH/PUT /tasks/:id
   def update
+      # "Atualiza a tarefa existente com os parâmetros recebidos e redireciona se for bem-sucedido"
+    if @task.update(task_params)
+      redirect_to tasks_path, notice: 'Tarefa atualizada com sucesso.'
+    end
   end
 end
