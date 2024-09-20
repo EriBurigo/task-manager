@@ -27,6 +27,9 @@ class TasksController < ApplicationController
       # "Atualiza a tarefa existente com os parâmetros recebidos e redireciona se for bem-sucedido"
     if @task.update(task_params)
       redirect_to tasks_path, notice: 'Tarefa atualizada com sucesso.'
+    else
+      # "Renderiza o formulário de edição se a tarefa não for atualizada"
+      render :edit
     end
   end
 end
