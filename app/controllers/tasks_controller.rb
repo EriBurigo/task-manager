@@ -32,4 +32,9 @@ class TasksController < ApplicationController
       render :edit
     end
   end
+
+  # DELETE /tasks/:id
+  # "Adiciona o método destroy para excluir uma tarefa existente"
+  def destroy
+  end
 end
