@@ -36,5 +36,6 @@ class TasksController < ApplicationController
   # DELETE /tasks/:id
   # "Adiciona o método destroy para excluir uma tarefa existente"
   def destroy
+    @task.destroy # "Exclui a tarefa do banco de dados"
   end
 end
