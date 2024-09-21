@@ -42,4 +42,8 @@ class TasksController < ApplicationController
   end
 
   private
+
+  # "Adiciona o método set_task para carregar a tarefa com base no ID fornecido"
+  def set_task
+  end
 end
