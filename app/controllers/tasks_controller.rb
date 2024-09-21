@@ -37,5 +37,9 @@ class TasksController < ApplicationController
   # "Adiciona o método destroy para excluir uma tarefa existente"
   def destroy
     @task.destroy # "Exclui a tarefa do banco de dados"
+    # "Redireciona para a lista de tarefas após a exclusão"
+    redirect_to tasks_path, notice: 'Tarefa excluída com sucesso.'
   end
+
+  private
 end
