@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
     # Define a rota principal para listar todas as tarefas
     root "tasks#index"
+
+    # Define rotas RESTful para o recurso 'tasks'
+  resources :tasks
 end
