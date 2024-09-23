@@ -3,4 +3,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+    # Define a rota principal para listar todas as tarefas
+    root "tasks#index"
 end
