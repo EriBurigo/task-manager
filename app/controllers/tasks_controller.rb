@@ -51,6 +51,7 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:name)
+    params.require(:task).permit(:name, :alarm_time)
   end
 
 end
