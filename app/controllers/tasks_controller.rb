@@ -20,6 +20,7 @@ class TasksController < ApplicationController
 
       # GET /tasks/:id/edit
    def edit
+    @task = Task.find(params[:id])
    end
 
    # PATCH/PUT /tasks/:id
