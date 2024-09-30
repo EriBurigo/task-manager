@@ -18,3 +18,8 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+every 1.minute do
+    runner "Task.check_for_upcoming_alarms"
+  end
+  
