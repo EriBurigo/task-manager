@@ -3,7 +3,12 @@ class TasksController < ApplicationController
 
     def index
         @tasks = Task.all
-      end
+          if params[:with_alarm].present?
+            @tasks = Task.where.not(alarm_time: nil)
+          else
+            @tasks = Task.all
+          end
+    end
 
       def new
         @task = Task.new
