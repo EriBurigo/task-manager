@@ -2,13 +2,13 @@ class TasksController < ApplicationController
     before_action :set_task, only: [:show, :edit, :update, :destroy]
 
     def index
-        @tasks = Task.all
-          if params[:with_alarm].present?
-            @tasks = Task.where.not(alarm_time: nil)
-          else
-            @tasks = Task.all
-          end
+      if params[:with_alarm].present?
+        @tasks = Task.where.not(alarm_time: nil).page(params[:page]).per(5)
+      else
+        @tasks = Task.page(params[:page]).per(5)
+      end
     end
+    
 
       def new
         @task = Task.new
