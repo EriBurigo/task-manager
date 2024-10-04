@@ -1,31 +1,55 @@
 <div class="container mt-5">
-  <h1 class="mb-4">Lista de Tarefas</h1>
+  <!-- Título com ícone e cor personalizada -->
+  <h1 class="mb-4 text-primary text-center">
+    <i class="bi bi-list-task"></i> Lista de Tarefas
+  </h1>
 
-  <% if @tasks.any? %>
-    <% @tasks.each_with_index do |task, index| %>
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title"><%= "#{index + 1}. #{task.name}" %></h5>
-          <p class="card-text">
-            Alarme: <%= task.alarm_time ? task.alarm_time.strftime("%d/%m/%Y %H:%M") : "Sem alarme" %>
-          </p>
-          <%= link_to 'Editar', edit_task_path(task), class: "btn btn-warning btn-sm" %>
-          <%= link_to 'Excluir', task, method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-danger btn-sm" %>
+  <!-- Verificação se existem tarefas -->
+  <% if @tasks.present? %>
+    <!-- Usando cards para cada tarefa -->
+    <div class="row">
+      <% @tasks.each_with_index do |task, index| %>
+        <div class="col-md-6 col-lg-4 mb-3">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><%= "#{index + 1}. #{task.name}" %></h5>
+              <p class="card-text">
+                <strong>Alarme:</strong>
+                <%= task.alarm_time ? task.alarm_time.strftime("%d/%m/%Y %H:%M") : "Sem alarme" %>
+              </p>
+
+              <!-- Botões de ação com cores e ícones -->
+              <div class="d-flex justify-content-between">
+                <%= link_to edit_task_path(task), class: "btn btn-warning btn-sm" do %>
+                  <i class="bi bi-pencil-square"></i> Editar
+                <% end %>
+                <%= link_to task, method: :delete, data: { confirm: "Tem certeza?" }, class: "btn btn-danger btn-sm" do %>
+                  <i class="bi bi-trash"></i> Excluir
+                <% end %>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    <% end %>
-    
-    <!-- Paginação das tarefas -->
-    <div class="d-flex justify-content-center">
+      <% end %>
+    </div>
+
+    <!-- Paginação no centro -->
+    <div class="d-flex justify-content-center mt-4">
       <%= paginate @tasks %>
     </div>
   <% else %>
-    <p class="text-center">Nenhuma tarefa encontrada.</p>
+    <p class="text-center text-muted">Nenhuma tarefa encontrada.</p>
   <% end %>
 
-  <div class="mt-4">
-    <%= link_to 'Nova Tarefa', new_task_path, class: "btn btn-primary" %>
-    <%= link_to 'Mostrar Tarefas com Alarme', tasks_path(with_alarm: true), class: "btn btn-info ml-2" %>
+  <!-- Botão para criar nova tarefa -->
+  <div class="text-center mt-4">
+    <%= link_to new_task_path, class: "btn btn-primary btn-lg" do %>
+      <i class="bi bi-plus-circle"></i> Nova Tarefa
+    <% end %>
   </div>
-</div>
 
+  <!-- Rodapé -->
+  <footer class="mt-5 text-center text-muted">
+    © <%= Date.today.year %> Gerenciador de Tarefas – Todos os direitos reservados
+  </footer>
+</div>
