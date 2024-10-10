@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
-  validates :name, presence: true length: { minimum: 5, maximum: 100 }
+  validates :name, presence: true, length: { minimum: 5, maximum: 100 }
   validates :alarm_time, presence: false # O alarme é opcional
   validate :alarm_time_cannot_be_in_the_past
 
