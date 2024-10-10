@@ -11,6 +11,10 @@ module TaskManager
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
+    # Definir o fuso horário da aplicação
+    config.time_zone = 'America/Sao_Paulo'
+    config.active_record.default_timezone = :local
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
