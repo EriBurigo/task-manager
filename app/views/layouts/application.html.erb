@@ -26,13 +26,13 @@
   }
 
   
-  <% if @tasks.any? { |task| task.alarm_time && task.alarm_time <= Time.now + 5.minutes } %>
-    <% @tasks.each do |task| %>
-      <% if task.alarm_time && task.alarm_time <= Time.now + 5.minutes %>
-        notifyUser('<%= task.name %>');
-      <% end %>
+  <% if defined?(@tasks) && @tasks.any? { |task| task.alarm_time && task.alarm_time > Time.now && task.alarm_time <= Time.now + 5.minutes } %>
+  <% @tasks.each do |task| %>
+    <% if task.alarm_time && task.alarm_time > Time.now && task.alarm_time <= Time.now + 5.minutes %>
+      notifyUser('<%= task.name %>');
     <% end %>
   <% end %>
+<% end %>
 </script>
 
 
