@@ -7,5 +7,5 @@ Rails.application.routes.draw do
     root "tasks#index"
 
     # Define rotas RESTful para o recurso 'tasks'
-  resources :tasks
+  resources :tasks, except: :show
 end
