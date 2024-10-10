@@ -1,16 +1,15 @@
 <%= form_with(model: @task, local: true) do |form| %>
-    <div class="mb-3">
-      <%= form.label :name, 'Nome da Tarefa' %>
-      <%= form.text_field :name, class: 'form-control' %>
-    </div>
-  
-    <div class="mb-3">
-      <%= form.label :alarm_time, 'Definir Alarme (Opcional)' %>
-      <%= form.datetime_select :alarm_time, class: 'form-control' %>
-    </div>
-  
-    <div class="actions">
-      <%= form.submit class: "btn btn-primary" %>
-    </div>
-  <% end %>
-  
+  <div class="mb-3">
+    <%= form.label :name, 'Nome da Tarefa' %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :alarm_time, 'Definir Alarme (Opcional)' %>
+    <%= form.datetime_local_field :alarm_time, value: @task.alarm_time.try(:strftime, "%Y-%m-%dT%H:%M"), class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
