@@ -8,4 +8,10 @@ Rails.application.routes.draw do
 
     # Define rotas RESTful para o recurso 'tasks'
   resources :tasks, except: :show
+
+  resources :tasks do
+    collection do
+      get :archived
+    end
+  end  
 end
