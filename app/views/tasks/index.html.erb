@@ -6,11 +6,11 @@
 
   <!-- Verificação se existem tarefas -->
   <% if @tasks.present? %>
-    <!-- Usando cards para cada tarefa -->
+    <!-- Usando cards para cada tarefa estilo post-it -->
     <div class="row">
       <% @tasks.each_with_index do |task, index| %>
         <div class="col-md-6 col-lg-4 mb-3">
-          <div class="card shadow-sm">
+          <div class="card shadow-sm" style="background-color: #f7e8a5; border-radius: 10px;">
             <div class="card-body">
               <h5 class="card-title"><%= "#{index + 1}. #{task.name}" %></h5>
               <p class="card-text">
@@ -18,8 +18,16 @@
                 <%= task.alarm_time ? task.alarm_time.strftime("%d/%m/%Y %H:%M") : "Sem alarme" %>
               </p>
 
+              <!-- Caixa de seleção para marcar tarefa como completa -->
+              <div class="form-check">
+                <%= form_with model: task, url: complete_task_path(task), method: :patch, local: true do |f| %>
+                  <%= f.check_box :completed, class: "form-check-input", id: "task_#{task.id}" %>
+                  <%= f.label :completed, "Concluída", class: "form-check-label", for: "task_#{task.id}" %>
+                <% end %>
+              </div>
+
               <!-- Botões de ação com cores e ícones -->
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-between mt-3">
                 <%= link_to edit_task_path(task), class: "btn btn-warning btn-sm" do %>
                   <i class="bi bi-pencil-square"></i> Editar
                 <% end %>
