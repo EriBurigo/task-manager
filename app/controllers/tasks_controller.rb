@@ -1,6 +1,12 @@
 class TasksController < ApplicationController
     before_action :set_task, only: [:show, :edit, :update, :destroy]
 
+    def complete
+      @task = Task.find(params[:id])
+      @task.update(completed: params[:task][:completed])
+      redirect_to tasks_path
+    end    
+
     def archived
       @tasks = Task.where(completed: true)
     end    
