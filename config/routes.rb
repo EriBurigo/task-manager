@@ -14,4 +14,10 @@ Rails.application.routes.draw do
       get :archived
     end
   end  
+
+  resources :tasks do
+    member do
+      patch :complete
+    end
+  end  
 end
