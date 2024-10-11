@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
     before_action :set_task, only: [:show, :edit, :update, :destroy]
 
+    def archived
+      @tasks = Task.where(completed: true)
+    end    
+
     def index
       if params[:with_alarm].present?
         @tasks = Task.where.not(alarm_time: nil).page(params[:page]).per(5)
