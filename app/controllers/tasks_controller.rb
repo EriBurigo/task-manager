@@ -7,8 +7,14 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     end    
 
+    def arquive
+        @task = Task.find(params[:id])
+        @task.update(arquived: true)
+        redirect_to tasks_path, notice: 'Tarefa arquivada com sucesso'
+    end
+
     def archived
-      @tasks = Task.where(completed: true)
+      @tasks = Task.where(arquived: true)
     end    
 
     def index
