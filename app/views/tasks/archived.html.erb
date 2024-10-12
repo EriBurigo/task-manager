@@ -1,0 +1,23 @@
+<div class="container mt-5">
+  <h1 class="text-center text-primary">Tarefas Arquivadas</h1>
+
+  <% if @archived_tasks.present? %>
+    <div class="row">
+      <% @archived_tasks.each_with_index do |task, index| %>
+        <div class="col-md-6 col-lg-4 mb-3">
+          <div class="card shadow-sm" style="background-color: #e0e0e0;">
+            <div class="card-body">
+              <h5 class="card-title"><%= "#{index + 1}. #{task.name}" %></h5>
+              <p class="card-text">
+                <strong>Alarme:</strong>
+                <%= task.alarm_time ? task.alarm_time.strftime("%d/%m/%Y %H:%M") : "Sem alarme" %>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center text-muted">Nenhuma tarefa arquivada encontrada.</p>
+  <% end %>
+</div>
