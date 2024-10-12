@@ -20,4 +20,7 @@ Rails.application.routes.draw do
       patch :complete
     end
   end  
+
+  patch '/tasks/:id/archive', to: 'tasks#archive', as: :archive_task
+
 end
