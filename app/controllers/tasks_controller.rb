@@ -18,6 +18,7 @@ class TasksController < ApplicationController
     end    
 
     def index
+      @tasks = Task.where(archived: false)
       if params[:with_alarm].present?
         @tasks = Task.where.not(alarm_time: nil).page(params[:page]).per(5)
       else
