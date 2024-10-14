@@ -3,6 +3,8 @@ class Task < ApplicationRecord
   validates :alarm_time, presence: false # O alarme é opcional
   validate :alarm_time_cannot_be_in_the_past
 
+  enum status: {active: 0, archived: 1}
+
   def alarm_time_cannot_be_in_the_past
     if alarm_time.present? && alarm_time < Time.now
       errors.add(:alarm_time, "não pode estar no passado")
