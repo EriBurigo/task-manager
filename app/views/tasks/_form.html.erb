@@ -4,6 +4,17 @@
     <%= form.text_field :name, class: 'form-control' %>
   </div>
 
+  <% if @task.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@task.errors.count, "erro") %> proibiu que a tarefa fosse salva:</h2>
+    <ul>
+      <% @task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
   <div class="mb-3">
     <%= form.label :alarm_time, 'Definir Alarme (Opcional)' %>
     <%= form.datetime_local_field :alarm_time, value: @task.alarm_time.try(:strftime, "%Y-%m-%dT%H:%M"), class: 'form-control' %>
