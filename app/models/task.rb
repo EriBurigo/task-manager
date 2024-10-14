@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
-  validates :name, presence: true, length: { minimum: 5, maximum: 100 }
+  validates :name, presence: {message: "O nome da tarefa é obrigatório"}, length: { minimum: 5, maximum: 100, message: "O nome da tarefa deve ter entre 5 e 100 characteres" }
   validates :alarm_time, presence: false # O alarme é opcional
   validate :alarm_time_cannot_be_in_the_past
 
