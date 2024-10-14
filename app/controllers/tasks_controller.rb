@@ -7,15 +7,14 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     end    
 
-    def arquive
-        @task = Task.find(params[:id])
-        @task.update(arquived: true)
-        redirect_to tasks_path, notice: 'Tarefa arquivada com sucesso'
-    end
-
-    def archived
-      @tasks = Task.where(arquived: true)
-    end    
+    def archive
+      @task = Task.find(params[:id])
+      if @task.update(status: :archived)
+        redirect_to tasks_path, notice: 'Tarefa arquivada com sucesso!'
+      else
+        redirect_to tasks_path, alert: 'Erro ao arquivar a tarefa.'
+      end
+    end     
 
     def index
       @tasks = Task.where(archived: false)
