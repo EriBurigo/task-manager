@@ -21,9 +21,9 @@
               <!-- Caixa de seleção para marcar tarefa como completa -->
               <div class="form-check">
                 <%= form_with model: task, url: archive_task_path(task), method: :patch, local: true do |f| %>
-                  <%= f.check_box :completed, class: "form-check-input", id: "task_<%= task.id %>", onchange: "this.form.submit();" %>
-                  <%= f.label :completed, "Concluída", class: "form-check-label", for: "task_<%= task.id %>" %>
-                <% end %>              
+                  <%= f.check_box :completed, class: "form-check-input", id: "task_#{task.id}", onchange: "this.form.submit();" %>
+                  <%= f.label :completed, "Concluída", class: "form-check-label", for: "task_#{task.id}" %>
+                <% end %>
               </div>
 
               <!-- Botões de ação com cores e ícones -->
@@ -31,6 +31,7 @@
                 <%= link_to edit_task_path(task), class: "btn btn-warning btn-sm" do %>
                   <i class="bi bi-pencil-square"></i> Editar
                 <% end %>
+
                 <%= link_to task, method: :delete, data: { confirm: "Tem certeza?" }, class: "btn btn-danger btn-sm" do %>
                   <i class="bi bi-trash"></i> Excluir
                 <% end %>
