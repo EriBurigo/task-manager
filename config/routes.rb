@@ -1,26 +1,12 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # Rota principal
+  root "tasks#index"
 
-  # Defines the root path route ("/")
-  # root "articles#index"
-    # Define a rota principal para listar todas as tarefas
-    root "tasks#index"
-
-    # Define rotas RESTful para o recurso 'tasks'
-  resources :tasks, except: :show
-
-  resources :tasks do
+  # Rotas para tarefas
+  resources :tasks, except: :show do
     collection do
       get :archived
     end
-  end  
 
-  resources :tasks do
     member do
       patch :complete
-    end
-  end  
-
-  patch '/tasks/:id/archive', to: 'tasks#archive', as: :archive_task
-
-end
