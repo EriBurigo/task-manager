@@ -1,78 +1,77 @@
 class TasksController < ApplicationController
-    before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:edit, :update, :destroy, :complete, :archive]
 
-    def complete
-      @task = Task.find(params[:id])
-      @task.update(completed: params[:task][:completed])
-      redirect_to tasks_path
-    end    
-
-    def archive
-      @task = Task.find(params[:id])
-      if @task.update(status: :archived)
-        redirect_to tasks_path, notice: 'Tarefa arquivada com sucesso!'
-      else
-        redirect_to tasks_path, alert: 'Erro ao arquivar a tarefa.'
-      end
-    end     
-
-    def index
-      @tasks = Task.where(archived: false)
-      if params[:with_alarm].present?
-        @tasks = Task.where.not(alarm_time: nil).page(params[:page]).per(5)
-      else
-        @tasks = Task.page(params[:page]).per(5)
-      end
+  # Exibe as tarefas, com filtro opcional de alarme
+  def index
+    @tasks = Task.where(archived: false)
+    if params[:with_alarm].present?
+      @tasks = @tasks.where.not(alarm_time: nil).page(params[:page]).per(5)
+    else
+      @tasks = @tasks.page(params[:page]).per(5)
     end
-    
+  end
 
-      def new
-        @task = Task.new
-      end
+  # Cria uma nova tarefa
+  def new
+    @task = Task.new
+  end
 
-      def create
-        @task = Task.new(task_params)
-            if @task.save
-                redirect_to tasks_path, notice: 'Tarefa criada com sucesso.'
-            else
-                render :new
-            end
-      end
+  # Salva a nova tarefa no banco de dados
+  def create
+    @task = Task.new(task_params)
+    if @task.save
+      redirect_to tasks_path, notice: 'Tarefa criada com sucesso.'
+    else
+      render :new
+    end
+  end
 
-      # GET /tasks/:id/edit
-   def edit
-    @task = Task.find(params[:id])
-   end
+  # Edita uma tarefa existente
+  def edit
+  end
 
-   # PATCH/PUT /tasks/:id
+  # Atualiza uma tarefa existente
   def update
-      # "Atualiza a tarefa existente com os parâmetros recebidos e redireciona se for bem-sucedido"
     if @task.update(task_params)
       redirect_to tasks_path, notice: 'Tarefa atualizada com sucesso.'
     else
-      # "Renderiza o formulário de edição se a tarefa não for atualizada"
       render :edit
     end
   end
 
-  # DELETE /tasks/:id
-  # "Adiciona o método destroy para excluir uma tarefa existente"
+  # Marca a tarefa como concluída
+  def complete
+    if @task.update(completed: true)
+      redirect_to tasks_path, notice: 'Tarefa marcada como concluída.'
+    else
+      redirect_to tasks_path, alert: 'Erro ao concluir a tarefa.'
+    end
+  end
+
+  # Arquiva uma tarefa
+  def archive
+    if @task.update(status: :archived)
+      redirect_to tasks_path, notice: 'Tarefa arquivada com sucesso!'
+    else
+      redirect_to tasks_path, alert: 'Erro ao arquivar a tarefa.'
+    end
+  end
+
+  # Exclui uma tarefa
   def destroy
-    @task.destroy # "Exclui a tarefa do banco de dados"
-    # "Redireciona para a lista de tarefas após a exclusão"
+    @task.destroy
     redirect_to tasks_path, notice: 'Tarefa excluída com sucesso.'
   end
 
   private
 
-  # "Adiciona o método set_task para carregar a tarefa com base no ID fornecido"
+  # Carrega a tarefa com base no ID
   def set_task
     @task = Task.find(params[:id])
   end
 
+  # Permite apenas os parâmetros seguros
   def task_params
-    params.require(:task).permit(:name)
-    params.require(:task).permit(:name, :alarm_time)
+    params.require(:task).permit(:name, :alarm_time, :completed)
   end
-
 end
