@@ -39,9 +39,12 @@ class TasksController < ApplicationController
     end
   end
 
-  # Marca a tarefa como concluída
+
   def complete
-    if @task.update(completed: true)
+    @task = Task.find(params[:id])
+    
+    # Atualiza a tarefa, definindo completed como true ou false
+    if @task.update(completed: params[:task][:completed])
       redirect_to tasks_path, notice: 'Tarefa marcada como concluída.'
     else
       redirect_to tasks_path, alert: 'Erro ao concluir a tarefa.'
