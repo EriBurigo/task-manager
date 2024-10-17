@@ -10,3 +10,7 @@ Rails.application.routes.draw do
 
     member do
       patch :complete
+      patch :archive  # Adiciona essa rota para arquivar uma tarefa específica
+    end
+  end
+end
